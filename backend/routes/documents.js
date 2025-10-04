@@ -8,7 +8,7 @@ const {
     downloadDocument ,
     testGeminiAPI,
     checkAPIHealth
-} = require('../controllers/documentController');
+} = require('../controllers/DocumentController');
 const { requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
