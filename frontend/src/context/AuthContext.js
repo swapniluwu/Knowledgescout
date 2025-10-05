@@ -75,6 +75,7 @@
 
 
 
+// frontend/src/context/AuthContext.js - SIMPLIFIED VERSION
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { authAPI } from '../services/api';
 import { setToken, getToken, removeToken } from '../utils/auth';
@@ -94,66 +95,31 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Check if user is logged in on app start
         const token = getToken();
         if (token) {
-            // In a real app, you'd verify the token with the backend
-            // For this demo, we'll just set a mock user
             setUser({ name: 'Demo User', email: 'user@demo.com' });
         }
         setLoading(false);
     }, []);
 
     const login = async (email, password) => {
-        try {
-            console.log('Attempting login with:', email);
-            const response = await authAPI.login({ email, password });
-            console.log('Login response:', response);
-            
-            const { user, token } = response.data;
-            
-            setToken(token);
-            setUser(user);
-            return user;
-        } catch (error) {
-            console.error('Login error:', error);
-            // DEMO MODE: Always succeed for any login attempt
-            const demoUser = { 
-                id: 1, 
-                name: 'Demo User', 
-                email: email, 
-                role: 'user' 
-            };
-            setToken('demo-token-123');
-            setUser(demoUser);
-            return demoUser;
-        }
+        // DIRECT MOCK - no try/catch needed
+        const response = await authAPI.login({ email, password });
+        const { user, token } = response.data;
+        
+        setToken(token);
+        setUser(user);
+        return user;
     };
 
     const register = async (name, email, password) => {
-        try {
-            console.log('Attempting register with:', name, email);
-            const response = await authAPI.register({ name, email, password });
-            console.log('Register response:', response);
-            
-            const { user, token } = response.data;
-            
-            setToken(token);
-            setUser(user);
-            return user;
-        } catch (error) {
-            console.error('Register error:', error);
-            // DEMO MODE: Always succeed for any registration attempt
-            const demoUser = { 
-                id: Date.now(), 
-                name: name, 
-                email: email, 
-                role: 'user' 
-            };
-            setToken('demo-token-123');
-            setUser(demoUser);
-            return demoUser;
-        }
+        // DIRECT MOCK - no try/catch needed
+        const response = await authAPI.register({ name, email, password });
+        const { user, token } = response.data;
+        
+        setToken(token);
+        setUser(user);
+        return user;
     };
 
     const logout = () => {

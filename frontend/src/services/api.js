@@ -50,15 +50,14 @@
 
 
 
-// DEMO MODE ONLY - Frontend Mock API
-const IS_DEMO_MODE = true;
+// frontend/src/services/api.js - PURE MOCK VERSION
 
 // Mock delay function
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Mock data functions
 const mockLogin = async (credentials) => {
-    await delay(1000);
+    await delay(800);
     return {
         data: {
             token: 'demo-jwt-token-12345',
@@ -73,7 +72,7 @@ const mockLogin = async (credentials) => {
 };
 
 const mockRegister = async (userData) => {
-    await delay(1000);
+    await delay(800);
     return {
         data: {
             token: 'demo-jwt-token-12345',
@@ -89,7 +88,7 @@ const mockRegister = async (userData) => {
 };
 
 const mockGetDocuments = async () => {
-    await delay(800);
+    await delay(600);
     return {
         data: [
             { 
@@ -109,7 +108,7 @@ const mockGetDocuments = async () => {
 };
 
 const mockAskQuestion = async (questionData) => {
-    await delay(1500);
+    await delay(1200);
     return {
         data: {
             answer: `Demo response: "${questionData.question}" - This is a mock answer showing the app works.`,
@@ -119,7 +118,7 @@ const mockAskQuestion = async (questionData) => {
 };
 
 const mockUploadDocument = async (formData) => {
-    await delay(2000);
+    await delay(1500);
     return {
         data: {
             id: Date.now(),
@@ -129,7 +128,7 @@ const mockUploadDocument = async (formData) => {
     };
 };
 
-// Export mock APIs directly
+// Export mock APIs
 export const authAPI = {
     register: mockRegister,
     login: mockLogin,
@@ -141,10 +140,4 @@ export const documentsAPI = {
     ask: mockAskQuestion,
     getContent: () => Promise.resolve({ data: 'Mock document content...' }),
     download: () => Promise.resolve({ data: new Blob() }),
-};
-
-// Simple default export
-export default {
-    authAPI,
-    documentsAPI
 };
