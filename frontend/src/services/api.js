@@ -103,6 +103,25 @@ const mockLogin = async (credentials) => {
     });
 };
 
+const mockRegister = async (userData) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({
+                data: {
+                    token: 'demo-jwt-token-12345',
+                    user: { 
+                        id: 2, 
+                        email: userData.email, 
+                        name: userData.name || 'New User',
+                        role: 'user'
+                    },
+                    message: 'Registration successful (demo mode)'
+                }
+            });
+        }, 1000);
+    });
+};
+
 const mockGetDocuments = async (params = {}) => {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -162,7 +181,7 @@ const mockUploadDocument = async (formData) => {
 
 // Auth API
 export const authAPI = {
-    register: (userData) => IS_DEMO_MODE ? mockLogin(userData) : api.post('/auth/register', userData),
+    register: (userData) => IS_DEMO_MODE ? mockRegister(userData) : api.post('/auth/register', userData),
     login: (credentials) => IS_DEMO_MODE ? mockLogin(credentials) : api.post('/auth/login', credentials),
 };
 
